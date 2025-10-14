@@ -53,7 +53,7 @@ ul {
   background-color: #ffffff;
   border-radius: 5px;
   padding: 10px;
-  box-shadow: 0, 5px, 15px, rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.08);
   margin-bottom: 10px;
   width: 90%;
   max-width: 600px;

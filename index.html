@@ -53,53 +53,42 @@
         <section class="summary">
           <div class="border border-primary balance-card">
             <span>Your Balance</span>
-            <h3 class="text-primary balance">2,500.00</h3>
+            <h3 class="text-primary balance" id="balance"></h3>
           </div>
           <div class="border border-success income-card" style="width: 40%">
             <span>Income</span>
-            <h3 class="green fw-bold">3,000.00</h3>
+            <h3 class="green fw-bold" id="totalIncome"></h3>
           </div>
           <div class="border border-danger expense-card" style="width: 40%">
             <span>Expense</span>
-            <h3 class="red fw-bold">500</h3>
+            <h3 class="red fw-bold" id="totalExpense"></h3>
           </div>
         </section>
         <section class="bottom-container">
           <div class="recent-trnasactions-container">
             <h2>Recent Transactions</h2>
-            <ul>
-              <li class="transaction-item">
-                <div class="transaction-item-note">
-                  <span class="type income">Income</span>
-                  <span class="name">Salary</span>
-                </div>
-                <p class="amount green">+1,500.00</p>
-              </li>
-              <li class="transaction-item">
-                <div class="transaction-item-note">
-                  <span class="type income">Income</span>
-                  <span class="name">Salary</span>
-                </div>
-                <p class="amount green">+1,000.00</p>
-              </li>
-              <li class="transaction-item">
-                <div class="transaction-item-note">
-                  <span class="type expense">Expense</span>
-                  <span class="name">Rent</span>
-                </div>
-                <p class="amount red">-500.00</p>
-              </li>
-            </ul>
+            <ul id="RecentTransactions"></ul>
           </div>
 
           <div class="form-container">
             <form action="" class="hide" id="addtransaction">
-              <input type="text" placeholder="Transaction Name" />
-              <input type="text" placeholder="Amount" />
+              <input
+                type="text"
+                placeholder="Transaction Name"
+                required
+                id="transactionName"
+              />
+              <input type="text" placeholder="Amount" required id="amount" />
               <div class="radio-group">
                 <div class="d-flex align-items-center">
                   <label for="Income" class="green"> Income</label>
-                  <input type="radio" name="type" value="Income" id="Income" />
+                  <input
+                    type="radio"
+                    name="type"
+                    value="Income"
+                    id="Income"
+                    checked
+                  />
                 </div>
                 <div class="d-flex align-items-center">
                   <label for="Expense" class="red"> Expense</label>
@@ -111,7 +100,9 @@
                   />
                 </div>
               </div>
-              <button class="add-button btn-primary">Add Transaction</button>
+              <button class="add-button btn-primary" type="submit">
+                Add Transaction
+              </button>
             </form>
             <button
               class="float-button btn-primary"

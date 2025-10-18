@@ -69,28 +69,46 @@ function renderSummary() {
 renderSummary();
 updateRecentTransactions(data);
 
+function validateInput(name, amount) {
+  let validInput = true;
+  if (isNaN(Number(name)) === false) {
+    validInput = false;
+    alert("Please Enter Valid Name ");
+    return validInput;
+  }
+  if (isNaN(Number(amount)) === true) {
+    validInput = false;
+    alert("Please Enter Valid Amount ");
+    return validInput;
+  }
+  return validInput;
+}
+
 addtransactionEl.addEventListener("submit", (event) => {
   event.preventDefault();
 
   let name = transactionNameEl.value;
   let amount = amountEl.value;
-  let type = IncomeEl.checked ? IncomeEl.value : ExpenseEl.value;
-  if (type === "Income") {
-    totalBalance += Number(amount);
-    totalIncome += Number(amount);
-  } else {
-    totalBalance -= Number(amount);
-    totalExpense += Number(amount);
+  let isValidInputs = validateInput(name, amount);
+  if (isValidInputs) {
+    let type = IncomeEl.checked ? IncomeEl.value : ExpenseEl.value;
+    if (type === "Income") {
+      totalBalance += Number(amount);
+      totalIncome += Number(amount);
+    } else {
+      totalBalance -= Number(amount);
+      totalExpense += Number(amount);
+    }
+
+    renderSummary();
+
+    data.unshift({ name: name, amount: amount, type: type });
+
+    updateRecentTransactions(data);
+    transactionNameEl.value = "";
+    amountEl.value = "";
+    IncomeEl.checked = true;
+    addtransactionEl.classList.add("hide");
+    addTransactionBtnContainerEl.classList.remove("hide");
   }
-
-  renderSummary();
-
-  data.unshift({ name: name, amount: amount, type: type });
-
-  updateRecentTransactions(data);
-  transactionNameEl.value = "";
-  amountEl.value = "";
-  IncomeEl.checked = true;
-  addtransactionEl.classList.add("hide");
-  addTransactionBtnContainerEl.classList.remove("hide");
 });

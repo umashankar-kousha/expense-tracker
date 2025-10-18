@@ -8,8 +8,6 @@ if (StoredData) {
 let data = allData[0];
 let balances = allData[1];
 
-console.log(allData);
-
 let addTransactionBtnContainerEl = document.getElementById(
   "addTransactionBtnContainer"
 );

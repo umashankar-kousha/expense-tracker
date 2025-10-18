@@ -1,8 +1,14 @@
-let data = [{ name: "Salary", type: "Income", amount: 10000 }];
+let StoredData = localStorage.getItem("transactions");
 
-let totalBalance = 10000;
-let totalIncome = 10000;
-let totalExpense = 0;
+let allData = [[], { totalBalance: 0, totalIncome: 0, totalExpense: 0 }];
+
+if (StoredData) {
+  allData = JSON.parse(StoredData);
+}
+let data = allData[0];
+let balances = allData[1];
+
+console.log(allData);
 
 let addTransactionBtnContainerEl = document.getElementById(
   "addTransactionBtnContainer"
@@ -60,13 +66,13 @@ function updateRecentTransactions(data) {
   }
 }
 
-function renderSummary() {
-  balanceEl.textContent = `\u20B9 ${totalBalance}`;
-  totalIncomeEl.textContent = `\u20B9 ${totalIncome}`;
-  totalExpenseEl.textContent = `\u20B9 ${totalExpense}`;
+function renderSummary(balances) {
+  balanceEl.textContent = `\u20B9 ${balances.totalBalance}`;
+  totalIncomeEl.textContent = `\u20B9 ${balances.totalIncome}`;
+  totalExpenseEl.textContent = `\u20B9 ${balances.totalExpense}`;
 }
 
-renderSummary();
+renderSummary(balances);
 updateRecentTransactions(data);
 
 function validateInput(name, amount) {
@@ -93,16 +99,29 @@ addtransactionEl.addEventListener("submit", (event) => {
   if (isValidInputs) {
     let type = IncomeEl.checked ? IncomeEl.value : ExpenseEl.value;
     if (type === "Income") {
-      totalBalance += Number(amount);
-      totalIncome += Number(amount);
+      balances.totalBalance += Number(amount);
+      balances.totalIncome += Number(amount);
     } else {
-      totalBalance -= Number(amount);
-      totalExpense += Number(amount);
+      balances.totalBalance -= Number(amount);
+      balances.totalExpense += Number(amount);
     }
 
-    renderSummary();
+    renderSummary(balances);
 
-    data.unshift({ name: name, amount: amount, type: type });
+    data.unshift({
+      name: name,
+      amount: amount,
+      type: type,
+    });
+
+    /* balances = {
+      totalBalance: totalBalance,
+      totalIncome: totalIncomeEl,
+      totalExpense: totalExpense,
+    }; */
+    allData = [data, balances];
+    let stringifiedData = JSON.stringify(allData);
+    localStorage.setItem("transactions", stringifiedData);
 
     updateRecentTransactions(data);
     transactionNameEl.value = "";
